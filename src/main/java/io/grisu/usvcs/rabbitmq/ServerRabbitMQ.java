@@ -13,6 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
@@ -94,6 +95,8 @@ public class ServerRabbitMQ {
 
                         if (th instanceof GrisuException) {
                             result = ((GrisuException) th).serialize();
+                        } else if (th instanceof CompletionException && th.getCause() instanceof GrisuException) {
+                            result = ((GrisuException) th.getCause()).serialize();
                         } else {
                             result = MapBuilder
                                 .instance()

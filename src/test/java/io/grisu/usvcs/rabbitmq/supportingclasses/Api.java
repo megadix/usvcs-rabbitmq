@@ -17,4 +17,7 @@ public interface Api {
     @NanoService(name = "error-non-grisu")
     CompletableFuture<String> errorServiceNonGrisuException();
 
+    @NanoService(name = "error-completion-exception-grisu")
+    CompletableFuture<String> errorServiceCompletionExceptionGrisuException(Integer errorToReturn);
+
 }
